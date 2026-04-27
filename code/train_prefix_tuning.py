@@ -9,10 +9,16 @@ from torch.optim import AdamW
 from tqdm import tqdm
 from transformers import AutoTokenizer
 
-from config_utils import load_yaml_config
-from data_utils import build_dataloader, build_label_index, read_split_csv
-from models import PrefixTunedProT5
-from train_utils import accuracy_from_logits, choose_device, save_json, set_seed
+try:
+    from code.config_utils import load_yaml_config
+    from code.data_utils import build_dataloader, build_label_index, read_split_csv
+    from code.models import PrefixTunedProT5
+    from code.train_utils import accuracy_from_logits, choose_device, save_json, set_seed
+except ImportError:
+    from config_utils import load_yaml_config
+    from data_utils import build_dataloader, build_label_index, read_split_csv
+    from models import PrefixTunedProT5
+    from train_utils import accuracy_from_logits, choose_device, save_json, set_seed
 
 
 def parse_args() -> argparse.Namespace:

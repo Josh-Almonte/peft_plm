@@ -7,10 +7,16 @@ from pathlib import Path
 import torch
 from transformers import AutoTokenizer
 
-from config_utils import load_yaml_config
-from data_utils import build_dataloader, read_split_csv
-from models import PrefixTunedProT5
-from train_utils import accuracy_from_logits, choose_device, save_json
+try:
+    from code.config_utils import load_yaml_config
+    from code.data_utils import build_dataloader, read_split_csv
+    from code.models import PrefixTunedProT5
+    from code.train_utils import accuracy_from_logits, choose_device, save_json
+except ImportError:
+    from config_utils import load_yaml_config
+    from data_utils import build_dataloader, read_split_csv
+    from models import PrefixTunedProT5
+    from train_utils import accuracy_from_logits, choose_device, save_json
 
 
 def parse_args() -> argparse.Namespace:
