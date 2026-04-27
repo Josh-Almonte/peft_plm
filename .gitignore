@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+.DS_Store
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# local artifacts
+checkpoints/
+results/runs/
+results/logs/
+results/tmp/
+wandb/
