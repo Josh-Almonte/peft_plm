@@ -21,7 +21,7 @@ This repo trains Prefix Tuning directly and plots Figure 2 using your run output
 `code/models/prefix_t5.py` implements Prefix Tuning from scratch (learned virtual prefix tokens prepended to encoder embeddings), without PEFT helper libraries.  
 Training/evaluation uses ProT5 encoder features with a classification head and reports Q10 on validation/test splits.
 
-## 5. Reproduction Steps
+## 5. Training and Evaluation
 1. Create environment and install dependencies:
 ```bash
 python3 -m venv .venv
@@ -29,11 +29,32 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 2. Put localization data into `data/raw/subcellular_localization.csv` with columns: `sequence,label,split` where split is `train|val|test`.
-3. Run three-seed Prefix Tuning experiment:
+
+3. Train one Prefix Tuning run (uses `experiment.seed` and `experiment.output_dir` from config):
+```bash
+python3 code/train_prefix_tuning.py --config configs/prefix_tuning_default.yaml
+```
+
+4. Evaluate a trained checkpoint on the test split:
+```bash
+python3 code/evaluate_prefix_tuning.py --config configs/prefix_tuning_default.yaml
+```
+This writes `test_metrics.json` under `experiment.output_dir` from the config.
+
+Optional: evaluate a specific checkpoint and output path:
+```bash
+python3 code/evaluate_prefix_tuning.py \
+  --config configs/prefix_tuning_default.yaml \
+  --checkpoint results/runs/prefix_tuning/seed_97/best_checkpoint.pt \
+  --output results/runs/prefix_tuning/seed_97/test_metrics.json
+```
+
+5. Run the full three-seed experiment (seeds from `experiment.seeds`):
 ```bash
 python3 code/run_prefix_experiment.py --config configs/prefix_tuning_default.yaml
 ```
-4. Generate Figure 2:
+
+6. Generate Figure 2:
 ```bash
 python3 code/plot_figure2.py \
   --paper-csv data/reference/figure2_peft_methods_paper.csv \
