@@ -61,7 +61,7 @@ def main() -> None:
     label2id = loaded["label2id"]
 
     split = read_split_csv(data_cfg["dataset_csv"])
-    tokenizer = AutoTokenizer.from_pretrained(model_cfg["model_name"], do_lower_case=False)
+    tokenizer = AutoTokenizer.from_pretrained(model_cfg["model_name"], do_lower_case=False, use_fast=False)
     test_loader = build_dataloader(
         split.test,
         label2id=label2id,

@@ -55,11 +55,13 @@ def read_split_csv(path: str | Path) -> SplitData:
     if missing:
         raise ValueError(f"Missing required columns in {path}: {sorted(missing)}")
 
+    split_aliases = {"train": ("train",), "val": ("val", "valid"), "test": ("test",)}
     split_map: dict[str, pd.DataFrame] = {}
-    for name in ("train", "val", "test"):
-        part = frame.loc[frame["split"].str.lower() == name].copy()
+    lowered = frame["split"].str.lower()
+    for name, aliases in split_aliases.items():
+        part = frame.loc[lowered.isin(aliases)].copy()
         if part.empty:
-            raise ValueError(f"No rows found for split='{name}' in {path}")
+            raise ValueError(f"No rows found for split='{name}' (aliases={aliases}) in {path}")
         split_map[name] = part.reset_index(drop=True)
 
     return SplitData(train=split_map["train"], val=split_map["val"], test=split_map["test"])

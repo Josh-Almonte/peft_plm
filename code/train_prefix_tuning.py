@@ -59,7 +59,7 @@ def train_one_run(cfg: dict, seed: int, output_dir: Path) -> dict[str, float]:
     split = read_split_csv(data_cfg["dataset_csv"])
     label2id, id2label = build_label_index(split.train)
 
-    tokenizer = AutoTokenizer.from_pretrained(model_cfg["model_name"], do_lower_case=False)
+    tokenizer = AutoTokenizer.from_pretrained(model_cfg["model_name"], do_lower_case=False, use_fast=False)
     train_loader = build_dataloader(
         split.train,
         label2id=label2id,

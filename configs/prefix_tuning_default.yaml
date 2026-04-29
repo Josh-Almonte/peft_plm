@@ -9,7 +9,7 @@ data:
 model:
   model_name: Rostlab/prot_t5_xl_uniref50
   max_length: 1024
-  prefix_length: 16
+  prefix_length: 20
   dropout: 0.1
   freeze_backbone: true
 
