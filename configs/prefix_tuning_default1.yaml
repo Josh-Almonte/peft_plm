@@ -1,6 +1,6 @@
 experiment:
   seed: 42
-  seeds: [97, 98, 99]
+  seeds: [97]
   output_dir: results/runs/prefix_tuning
 
 data:
@@ -9,13 +9,13 @@ data:
 model:
   model_name: Rostlab/prot_t5_xl_uniref50
   max_length: 1024
-  prefix_length: 20
+  prefix_length: 16
   dropout: 0.1
   freeze_backbone: true
 
 train:
-  batch_size: 8
-  eval_batch_size: 8
+  batch_size: 2
+  eval_batch_size: 2
   epochs: 5
   lr: 0.0005
   weight_decay: 0.0
@@ -23,5 +23,5 @@ train:
   num_workers: 0
 
 results:
-  prefix_runs_csv: results/prefix_tuning_runs.csv
-  summary_json: results/summary_prefix_tuning.json
+  prefix_runs_csv: results/prefix_tuning_runs_seed97.csv
+  summary_json: results/summary_prefix_tuning_seed97.json
