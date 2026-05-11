@@ -11,24 +11,24 @@ This repo trains Prefix Tuning directly and plots Figure 2 using your run output
 
 ## 3. GitHub Contents
 - `code/`: training, evaluation, experiment orchestration, and plotting scripts.
-- `configs/`: experiment config files.
+- `configs/`: YAML experiment configuration files for prefix tuning runs.
 - `data/`: dataset placement + reference source-data.
 - `results/`: generated metrics, per-seed outputs, and figure artifacts.
-- `poster/`: poster PDF placeholder.
-- `report/`: final report PDF placeholder.
+- `poster/`: in-class presentation poster PDF.
+- `report/`: final 2-page report PDF.
 
 ## 4. Re-implementation Details
 `code/models/prefix_t5.py` implements Prefix Tuning from scratch (learned virtual prefix tokens prepended to encoder embeddings), without PEFT helper libraries.  
 Training/evaluation uses ProT5 encoder features with a classification head and reports Q10 on validation/test splits.
 
-## 5. Training and Evaluation
+## 5. Reproduction Steps
 1. Create environment and install dependencies:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
-2. Put localization data into `data/raw/subcellular_localization.csv` with columns: `sequence,label,split` where split is `train|val|test`.
+2. The preprocessed dataset is already included at `data/raw/subcellular_localization.csv`. If you need to regenerate it, download the raw splits (`train.pkl`, `valid.pkl`, `test.pkl`) from [HannesStark/protein-localization](https://github.com/HannesStark/protein-localization) and run `data/data_preprocess_to_csv.ipynb` (updating the input paths to match your local copies).
 
 3. Train one Prefix Tuning run (uses `experiment.seed` and `experiment.output_dir` from config):
 ```bash
@@ -76,6 +76,7 @@ This repo emphasizes reproducible, scriptable re-implementation: training, evalu
 ## 8. References
 - Schmirler D, Heinzinger M, Rost B. 2024. Nature Communications. DOI: [10.1038/s41467-024-51844-2](https://doi.org/10.1038/s41467-024-51844-2).
 - ProT5 checkpoint: [Rostlab/prot_t5_xl_uniref50](https://huggingface.co/Rostlab/prot_t5_xl_uniref50).
+- SubLoc dataset: [HannesStark/protein-localization](https://github.com/HannesStark/protein-localization).
 
 ## 9. Acknowledgements
-Developed as coursework for CS 4782 final project.
+Developed as a final project for CS 4782 at Cornell University, instructed by Prof. INSTRUCTOR1 and Prof. INSTRUCTOR2. Team members: TEAMNAME1, TEAMNAME2.
