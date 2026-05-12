@@ -1,4 +1,4 @@
-# Fine-tuning protein language models to play
+# Fine-tuning protein language models to play pin the protein on the cell
 
 ## 0. Background
 
