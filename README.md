@@ -1,7 +1,18 @@
 # CS 4782 Final Project: Figure 2 Reimplementation
 
-## 1. Introduction
+## 0. Background
+
+### Proteins
+
+*[https://en.wikipedia.org/wiki/Protein](Proteins)* are long chains of *[https://en.wikipedia.org/wiki/Amino_acid](amino-acids)*. Amino acids are *[https://en.wikipedia.org/wiki/Amino_acid#Abbreviation_and_property_tables](encoded as letters)*. There are 20 natural amino acids
+<details>
+  <summary>The 20 natural amino acids</summary>
+  
+  A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y
+</details>
+
 This repository re-implements the PEFT comparison experiment from Schmirler et al. (2024), with emphasis on a from-scratch Prefix Tuning implementation for ProT5.
+Peptides Experimentalists don't have access to computationally intensive resources. Parameter efficient fine-tuning is necessary
 
 Paper: Schmirler, Heinzinger, Rost, *Fine-tuning protein language models boosts predictions across diverse tasks*, Nature Communications (2024), DOI: [10.1038/s41467-024-51844-2](https://doi.org/10.1038/s41467-024-51844-2).
 
