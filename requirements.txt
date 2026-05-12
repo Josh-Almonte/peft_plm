@@ -3,6 +3,7 @@ numpy>=1.26,<3
 pandas>=2.2,<3
 pyyaml>=6.0,<7
 scikit-learn>=1.5,<2
+sentencepiece>=0.1.99       # required by T5Tokenizer (used by both prefix tuning and LoRA)
 torch>=2.2,<3
 tqdm>=4.66,<5
 transformers>=4.46,<5

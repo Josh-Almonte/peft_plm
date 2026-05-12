@@ -1,7 +1,7 @@
 # CS 4782 Final Project: Figure 2 Reimplementation
 
 ## 1. Introduction
-This repository re-implements the PEFT comparison experiment from Schmirler et al. (2024), with emphasis on a from-scratch Prefix Tuning implementation for ProT5.
+This repository re-implements the PEFT comparison experiment from Schmirler et al. (2024), with emphasis on a from-scratch Prefix Tuning implementation for ProT5. A from-scratch LoRA implementation has also been added.
 
 Paper: Schmirler, Heinzinger, Rost, *Fine-tuning protein language models boosts predictions across diverse tasks*, Nature Communications (2024), DOI: [10.1038/s41467-024-51844-2](https://doi.org/10.1038/s41467-024-51844-2).
 
@@ -11,7 +11,7 @@ This repo trains Prefix Tuning directly and plots Figure 2 using your run output
 
 ## 3. GitHub Contents
 - `code/`: training, evaluation, experiment orchestration, and plotting scripts.
-- `configs/`: YAML experiment configuration files for prefix tuning runs.
+- `configs/`: YAML experiment configuration files for prefix tuning runs. `lora_default.yaml` added for LoRA.
 - `data/`: dataset placement + reference source-data.
 - `results/`: generated metrics, per-seed outputs, and figure artifacts.
 - `poster/`: in-class presentation poster PDF.
@@ -20,6 +20,9 @@ This repo trains Prefix Tuning directly and plots Figure 2 using your run output
 ## 4. Re-implementation Details
 `code/models/prefix_t5.py` implements Prefix Tuning from scratch (learned virtual prefix tokens prepended to encoder embeddings), without PEFT helper libraries.  
 Training/evaluation uses ProT5 encoder features with a classification head and reports Q10 on validation/test splits.
+
+### LoRA (added)
+`code/models/lora_t5.py` implements LoRA from scratch: low-rank matrices **A** (random init, scale 0.01) and **B** (zero init) are injected into each attention projection (`q`, `k`, `v`, `o`) of the frozen ProT5 encoder. The effective weight update is `ΔW = (α/r) · BA`. A two-layer MLP head (`LayerNorm → Linear → ReLU → Dropout → Linear`) classifies mean-pooled encoder outputs. No PEFT helper libraries are used.
 
 ## 5. Reproduction Steps
 1. Create environment and install dependencies:
@@ -64,11 +67,30 @@ python3 code/plot_figure2.py \
 
 Compute resources: one CUDA GPU (>=24GB VRAM recommended for full ProT5); CPU mode works for small smoke tests only.
 
+### LoRA (added)
+7. Update `data.data_path` in `configs/lora_default.yaml` to point to the directory containing `train.pkl`, `valid.pkl`, `test.pkl`.
+
+8. Train one LoRA run:
+```bash
+python3 -m code.train_lora --config configs/lora_default.yaml
+```
+Results are written to `results/runs/lora/` by default (`best_checkpoint.pt`, `train_history.json`, `train_summary.json`).
+
+Optional: override seed or output directory:
+```bash
+python3 -m code.train_lora --config configs/lora_default.yaml --seed 97 --output-dir results/runs/lora/seed_97
+```
+
 ## 6. Results / Insights
 Expected outputs after running the experiment:
 - `results/prefix_tuning_runs.csv`: per-seed Prefix Tuning Q10.
 - `results/summary_prefix_tuning.json`: aggregate mean/std/95% CI.
 - `results/figures/figure2_reimplementation.png`: reproduced Figure 2 style plot.
+
+LoRA outputs (after step 8):
+- `results/runs/lora/best_checkpoint.pt`: best checkpoint by val Q10.
+- `results/runs/lora/train_history.json`: per-epoch train/val loss and Q10.
+- `results/runs/lora/train_summary.json`: best val Q10 and checkpoint path.
 
 ## 7. Conclusion
 This repo emphasizes reproducible, scriptable re-implementation: training, evaluation, and figure generation are connected end-to-end, and Prefix Tuning logic is implemented directly in-code.

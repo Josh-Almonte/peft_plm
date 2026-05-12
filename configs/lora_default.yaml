@@ -1,0 +1,23 @@
+experiment:
+  seed: 42
+  output_dir: results/runs/lora
+
+data:
+  data_path: /home/fs01/mv487/ProteinLM/training data/SubLoc
+
+model:
+  model_name: Rostlab/prot_t5_xl_uniref50
+  max_length: 1000
+  r: 4
+  alpha: 1.0
+  lora_dropout: 0.05
+  hidden_dim: 512
+  num_classes: 10
+
+train:
+  batch_size: 1
+  eval_batch_size: 1
+  epochs: 10
+  lr: 0.0001
+  weight_decay: 0.01
+  grad_clip_norm: 1.0
