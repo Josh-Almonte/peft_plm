@@ -1,20 +1,22 @@
-# CS 4782 Final Project: Figure 2 Reimplementation
+# Fine-tuning protein language models to play
 
 ## 0. Background
 
 ### Proteins
 
-*[https://en.wikipedia.org/wiki/Protein](Proteins)* are long chains of *[https://en.wikipedia.org/wiki/Amino_acid](amino-acids)*. Amino acids are *[https://en.wikipedia.org/wiki/Amino_acid#Abbreviation_and_property_tables](encoded as letters)*. There are 20 natural amino acids
-<details>
-  <summary>The 20 natural amino acids</summary>
-  
-  A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y
-</details>
+[https://en.wikipedia.org/wiki/Protein](Proteins) are long chains of [https://en.wikipedia.org/wiki/Amino_acid](amino-acids). Each amino acid has unique chemical properties and can be [https://en.wikipedia.org/wiki/Amino_acid#Abbreviation_and_property_tables](represented as a letter). 
 
+### Protein Data and the case for fine-tuning > generality
+[https://en.wikipedia.org/wiki/Massively_parallel_sequencing](Next-gen DNA sequencing) enables huge amounts of unlabeled protein sequence data. Unlabeled protein sequence data is cheap and abundant thanks to [https://en.wikipedia.org/wiki/Massively_parallel_sequencing](next-gen DNA sequencing) technologies. 
+
+However, task-specific labeled protein data is *very* sparse. Presently, it is prohibitively expensive or, in some cases, technically impossible to generate task-secific, labeled protein data across tasks at scale. To be clear, large scale datasets do exist. The key piece that is missing is task diversity. For *most* tasks, there is simply a derth of labeled training data.
+
+## 1. Introduction
 This repository re-implements the PEFT comparison experiment from Schmirler et al. (2024), with emphasis on a from-scratch Prefix Tuning implementation for ProT5.
 Peptides Experimentalists don't have access to computationally intensive resources. Parameter efficient fine-tuning is necessary
 
 Paper: Schmirler, Heinzinger, Rost, *Fine-tuning protein language models boosts predictions across diverse tasks*, Nature Communications (2024), DOI: [10.1038/s41467-024-51844-2](https://doi.org/10.1038/s41467-024-51844-2).
+
 
 ## 2. Chosen Result
 Chosen target: Figure 2 (PEFT comparison on sub-cellular localization), evaluated as Q10 accuracy on the test split.  
