@@ -101,4 +101,4 @@ This repo emphasizes reproducible, scriptable re-implementation: training, evalu
 - SubLoc dataset: [HannesStark/protein-localization](https://github.com/HannesStark/protein-localization).
 
 ## 9. Acknowledgements
-Developed as a final project for CS 4782 at Cornell University, instructed by Prof. Kilian Q. Weinberger and Prof. Wei-Chiu Ma. Team members: Joshua Almonte, Triet Minh Vu.
+Developed as a final project for CS 4782 at Cornell University, instructed by Prof. Kilian Q. Weinberger and Prof. Wei-Chiu Ma. Team members: Joshua Almonte, Minh Triet Vu.
